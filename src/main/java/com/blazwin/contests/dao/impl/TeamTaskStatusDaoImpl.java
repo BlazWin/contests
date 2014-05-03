@@ -19,7 +19,7 @@ public class TeamTaskStatusDaoImpl extends DaoImpl<TeamTaskStatus> implements Te
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<TeamTaskStatus> query = builder.createQuery(TeamTaskStatus.class);
         Root<TeamTaskStatus> root = query.from(TeamTaskStatus.class);
-        query.where(builder.equal(root.get("contest"), contestId));
+        query.where(builder.equal(root.get("task").get("contest"), contestId));
         query.select(root);
         List<TeamTaskStatus> list = getEntityManager().createQuery(query).getResultList();
         return list;

@@ -55,7 +55,7 @@ public class GlobalDaoImpl implements GlobalDao {
         initTeamTaskStatus(tm);
         Comparator<Attempt> cmp = new Comparator<Attempt>() {
             public int compare(Attempt o1, Attempt o2) {
-                return o1.getTime().compareTo(o2.getTime());
+                return o1.getTime() - o2.getTime();
             }
         };
         Collections.sort(attempts, cmp);
@@ -67,6 +67,7 @@ public class GlobalDaoImpl implements GlobalDao {
                     && st.getTaskStatus() != TaskStatus.FIRST_OK) {
                 task.setTotalTries(task.getTotalTries() + 1);
                 st.setAttemptCount(st.getAttemptCount() + 1);
+                st.setLastAttemptTime(a.getTime());
                 if (a.getVerdict() == AttemptVerdict.ACCEPTED) {
                     task.setAcceptedTries(task.getAcceptedTries() + 1);
                     if (a.getTask().getAcceptedTries() == 1) {
@@ -74,8 +75,7 @@ public class GlobalDaoImpl implements GlobalDao {
                     } else {
                         st.setTaskStatus(TaskStatus.OK);
                     }
-                    long minutes = (a.getTime().getTime() - contest.getStart().getTime()) / 100 / 60;
-                    st.setPenalty((st.getAttemptCount() - 1) * 20 + (int) minutes);
+                    st.setPenalty((st.getAttemptCount() - 1) * 20 + a.getTime());
                 } else {
                     st.setTaskStatus(TaskStatus.FAILED);
                 }
@@ -98,14 +98,25 @@ public class GlobalDaoImpl implements GlobalDao {
             reg.setParticipated(tried);
             reg.setPenalty(penalty);
             reg.setTasksSolved(solved);
-            reg.setFullTeamName(reg.getTeam().getName() + ":" + reg.getTeam().getFirst().getSurname() + ", "
-                    + reg.getTeam().getSecond().getSurname() + ", " + reg.getTeam().getThird().getSurname());
+            StringBuilder sb = new StringBuilder();
+            sb.append(reg.getTeam().getName());
+            sb.append(": ");
+            sb.append(reg.getTeam().getFirst().getSurname());
+            if (reg.getTeam().getSecond() != null) {
+                sb.append(", ");
+                sb.append(reg.getTeam().getSecond().getSurname());
+            }
+            if (reg.getTeam().getThird() != null) {
+                sb.append(", ");
+                sb.append(reg.getTeam().getThird().getSurname());
+            }
+            reg.setFullTeamName(sb.toString());
         }
         Comparator<Registrant> cmpReg = new Comparator<Registrant>() {
             public int compare(Registrant o1, Registrant o2) {
-                int diff = o1.getTasksSolved() - o2.getTasksSolved();
+                int diff = o2.getTasksSolved() - o1.getTasksSolved();
                 if (diff == 0) {
-                    diff = o2.getPenalty() - o1.getPenalty();
+                    diff = o1.getPenalty() - o2.getPenalty();
                 }
                 return diff;
             }
@@ -118,8 +129,9 @@ public class GlobalDaoImpl implements GlobalDao {
         }
         for (Task task : tasks)
             taskDao.merge(task);
-        for (TeamTaskStatus st : teamTaskSt)
-            teamTaskStatusDao.save(st);
+        for (TreeMap<Integer, TeamTaskStatus> mp : tm.values())
+                for (TeamTaskStatus st : mp.values())
+                    teamTaskStatusDao.save(st);
     }
 
     private void initTeamTaskStatus(TreeMap<Integer, TreeMap<Integer, TeamTaskStatus>> tm) {
@@ -133,7 +145,7 @@ public class GlobalDaoImpl implements GlobalDao {
                 newSt.setTaskStatus(TaskStatus.UNTRIED);
                 newSt.setAttemptCount(0);
                 newSt.setPenalty(0);
-                tm.get(rg.getTeam()).put(task.getId(), newSt);
+                tm.get(rg.getTeam().getId()).put(task.getId(), newSt);
             }
         }
     }

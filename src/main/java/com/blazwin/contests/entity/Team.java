@@ -14,10 +14,10 @@ public class Team {
     @JoinColumn(name = "first_participant", nullable = false)
     private Participant first;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "second_participant", nullable = false)
+    @JoinColumn(name = "second_participant")
     private Participant second;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "third_participant", nullable = false)
+    @JoinColumn(name = "third_participant")
     private Participant third;
     @Column(name = "solutions_folder", nullable = false, length = 200)
     private String folder;

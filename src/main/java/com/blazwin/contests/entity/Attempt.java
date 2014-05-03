@@ -3,7 +3,6 @@ package com.blazwin.contests.entity;
 import com.blazwin.contests.entity.enums.AttemptVerdict;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Attempt {
@@ -12,7 +11,7 @@ public class Attempt {
     @Column(name = "attempt_id")
     private int id;
     @Column(nullable = false)
-    private Date time;
+    private int time;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 45)
     private AttemptVerdict verdict;
@@ -34,11 +33,11 @@ public class Attempt {
         this.id = id;
     }
 
-    public Date getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(int time) {
         this.time = time;
     }
 

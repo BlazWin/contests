@@ -22,6 +22,8 @@ public class TeamTaskStatus implements Serializable{
     private int attemptCount;
     @Column(name = "penalty", nullable = false)
     private int penalty;
+    @Column(name = "last_attempt_time")
+    private int lastAttemptTime;
 
     public Team getTeam() {
         return team;
@@ -61,5 +63,13 @@ public class TeamTaskStatus implements Serializable{
 
     public void setPenalty(int penalty) {
         this.penalty = penalty;
+    }
+
+    public int getLastAttemptTime() {
+        return lastAttemptTime;
+    }
+
+    public void setLastAttemptTime(int lastAttemptTime) {
+        this.lastAttemptTime = lastAttemptTime;
     }
 }

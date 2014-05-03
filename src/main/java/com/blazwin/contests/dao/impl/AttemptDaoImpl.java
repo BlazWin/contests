@@ -19,7 +19,7 @@ public class AttemptDaoImpl extends DaoImpl<Attempt> implements AttemptDao {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Attempt> query = builder.createQuery(Attempt.class);
         Root<Attempt> root = query.from(Attempt.class);
-        query.where(builder.equal(root.get("contest"), contestId));
+        query.where(builder.equal(root.get("task").get("contest"), contestId));
         query.select(root);
         List<Attempt> list = getEntityManager().createQuery(query).getResultList();
         return list;

@@ -12,7 +12,7 @@ public interface Dao<Type> {
 
     List<Type> getAll();
 
-    Type getById(long id);
+    Type getById(int id);
 
     long getCount();
 }

@@ -11,6 +11,8 @@ public class Contest {
     @GeneratedValue
     @Column(name = "contest_id")
     private int id;
+    @Column(name = "name")
+    private String name;
     @Column(nullable = false, name = "start_date")
     private Date start;
     @Column(nullable = false, name = "duration_min")
@@ -25,6 +27,14 @@ public class Contest {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getStart() {

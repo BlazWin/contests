@@ -1,57 +1,87 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/snarknews.css">
+</head>
 <body>
 <table class="standings">
     <tbody><tr>
-        <th class="stnd">Place</th><th class="stnd">Team name</th><th class="success" title="Approximate Bounding Box">A<br><s>5/30</s></th><th class="success" title="Braess's Paradox">B<br><s>12/17</s></th><th class="success" title="Catalonian Forest">C<br><s>10/10</s></th><th class="success" title="Detect Shuffling Method">D<br><s>12/19</s></th><th class="success" title="Embedding Caterpillars">E<br><s>12/16</s></th><th class="success" title="Funny Card Game">F<br><s>12/29</s></th><th class="success" title="Gold Mine">G<br><s>4/10</s></th><th class="success" title="Huffman Codes">H<br><s>12/26</s></th><th class="success" title="Intelligent Tourist">I<br><s>11/26</s></th><th class="tried" title="Judges Problem">J<br><s>0/30</s></th><th class="stnd">Total</th><th class="stnd">Time</th><th class="stnd">Dirt</th><th class="stnd">SE</th>
+        <th class="stnd">Place</th>
+        <th class="stnd">Team name</th>
+        <c:forEach var="task" items="${tasks}">
+            <th class="${task.acceptedTries > 0 ? 'success' : 'tried'}"
+                title="${task.name}">
+                <c:out value="${task.numLetter}"/>
+                <br>
+                <s><c:out value="${task.acceptedTries}/${task.totalTries}"/></s>
+            </th>
+        </c:forEach>
+        <th class="stnd">Total</th><th class="stnd">Time</th>
     </tr>
-    <tr class="stand01"><td class="stnd"><center>1.</center></td><td class="stnd">SPb NRU ITMO: Kever, Korotkevich, Nigmatullin</td><td class="opener"><center>+1<br><font size="1">2:34</font></center></td><td class="stnd"><center>+<br><font size="1">1:23</font></center></td><td class="opener"><center>+<br><font size="1">1:20</font></center></td><td class="stnd"><center>+<br><font size="1">1:32</font></center></td><td class="stnd"><center>+<br><font size="1">1:01</font></center></td><td class="opener"><center>+1<br><font size="1">1:16</font></center></td><td class="opener"><center>+<br><font size="1">3:17</font></center></td><td class="stnd"><center>+1<br><font size="1">1:46</font></center></td><td class="stnd"><center>+1<br><font size="1">0:32</font></center></td><td class="stnd"><center>-3<br><font size="1">4:58</font></center></td><td class="stnd">9</td><td class="stnd">961</td><td class="stnd">30%</td><td class="stnd">0.17</td>
-    </tr>
-    <tr class="stand01"><td class="stnd"><center>2.</center></td><td class="stnd">Petr team: Kulikov, Mavrin, Mitrichev</td><td class="stnd"><center>+4<br><font size="1">4:37</font></center></td><td class="stnd"><center>+<br><font size="1">1:23</font></center></td><td class="stnd"><center>+<br><font size="1">2:07</font></center></td><td class="stnd"><center>+<br><font size="1">1:50</font></center></td><td class="opener"><center>+<br><font size="1">0:31</font></center></td><td class="stnd"><center>+2<br><font size="1">1:24</font></center></td><td class="stnd"><center>+2<br><font size="1">4:22</font></center></td><td class="opener"><center>+<br><font size="1">1:11</font></center></td><td class="stnd"><center>+1<br><font size="1">0:41</font></center></td><td class="stnd"><center>-5<br><font size="1">4:58</font></center></td><td class="stnd">9</td><td class="stnd">1356</td><td class="stnd">50%</td><td class="stnd">0.17</td>
-    </tr>
-    <tr class="stand01"><td class="stnd"><center>3.</center></td><td class="stnd">Kiev NU BZFlags: Nagin, Tverdokhleb, Yedemskiy</td><td class="stnd"><center>+1<br><font size="1">4:07</font></center></td><td class="stnd"><center>+<br><font size="1">1:48</font></center></td><td class="stnd"><center>+<br><font size="1">2:25</font></center></td><td class="stnd"><center>+<br><font size="1">2:48</font></center></td><td class="stnd"><center>+<br><font size="1">1:16</font></center></td><td class="stnd"><center>+2<br><font size="1">2:03</font></center></td><td class="stnd"><center>+2<br><font size="1">4:56</font></center></td><td class="stnd"><center>+1<br><font size="1">3:51</font></center></td><td class="opener"><center>+<br><font size="1">0:31</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">9</td><td class="stnd">1905</td><td class="stnd">40%</td><td class="stnd">0.17</td>
-    </tr>
-    <tr class="stand00"><td class="stnd"><center>4.</center></td><td class="stnd">SPb SU 4: Egorov, Kunyavskiy, Suvorov</td><td class="stnd"><center>-6<br><font size="1">4:58</font></center></td><td class="stnd"><center>+1<br><font size="1">1:16</font></center></td><td class="stnd"><center>+<br><font size="1">3:06</font></center></td><td class="stnd"><center>+<br><font size="1">1:37</font></center></td><td class="stnd"><center>+<br><font size="1">1:18</font></center></td><td class="stnd"><center>+<br><font size="1">2:28</font></center></td><td class="stnd"><center>+<br><font size="1">3:32</font></center></td><td class="stnd"><center>+1<br><font size="1">1:59</font></center></td><td class="stnd"><center>+<br><font size="1">2:08</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">8</td><td class="stnd">1124</td><td class="stnd">20%</td><td class="stnd">0.11</td>
-    </tr>
-    <tr class="stand00"><td class="stnd"><center>5.</center></td><td class="stnd">Zhukov team: Zhukov, Gimadeev</td><td class="stnd"><center>+4<br><font size="1">3:58</font></center></td><td class="opener"><center>+1<br><font size="1">0:43</font></center></td><td class="stnd"><center>+<br><font size="1">4:54</font></center></td><td class="stnd"><center>+<br><font size="1">3:09</font></center></td><td class="stnd"><center>+<br><font size="1">1:39</font></center></td><td class="stnd"><center>+2<br><font size="1">2:47</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+<br><font size="1">2:33</font></center></td><td class="stnd"><center>+<br><font size="1">1:35</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">8</td><td class="stnd">1908</td><td class="stnd">46%</td><td class="stnd">0.10</td>
-    </tr>
-    <tr class="stand00"><td class="stnd"><center>6.</center></td><td class="stnd">Moscow SU Tapirs: Evstropov, Omelyanenko, Pyaderkin</td><td class="stnd"><center>+4<br><font size="1">3:57</font></center></td><td class="stnd"><center>+1<br><font size="1">1:43</font></center></td><td class="stnd"><center>+<br><font size="1">3:21</font></center></td><td class="opener"><center>+<br><font size="1">1:10</font></center></td><td class="stnd"><center>+<br><font size="1">1:45</font></center></td><td class="stnd"><center>+3<br><font size="1">3:00</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+<br><font size="1">2:16</font></center></td><td class="stnd"><center>+2<br><font size="1">0:53</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">8</td><td class="stnd">2285</td><td class="stnd">55%</td><td class="stnd">0.10</td>
-    </tr>
-    <tr class="stand01"><td class="stnd"><center>7.</center></td><td class="stnd">SPb SU Angry Muffin: Andreev, Karpov, Smykalov</td><td class="stnd"><center>-</center></td><td class="stnd"><center>+<br><font size="1">1:30</font></center></td><td class="stnd"><center>+<br><font size="1">3:39</font></center></td><td class="stnd"><center>+<br><font size="1">1:18</font></center></td><td class="stnd"><center>+<br><font size="1">0:33</font></center></td><td class="stnd"><center>+1<br><font size="1">2:29</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+1<br><font size="1">2:08</font></center></td><td class="stnd"><center>+1<br><font size="1">1:01</font></center></td><td class="stnd"><center>-2<br><font size="1">4:58</font></center></td><td class="stnd">7</td><td class="stnd">908</td><td class="stnd">30%</td><td class="stnd">0.04</td>
-    </tr>
-    <tr class="stand01"><td class="stnd"><center>8.</center></td><td class="stnd">Kharkiv NU SobolevTeam: Milanin, Sobolev, Sobolev</td><td class="stnd"><center>-1<br><font size="1">4:57</font></center></td><td class="stnd"><center>+<br><font size="1">1:17</font></center></td><td class="stnd"><center>+<br><font size="1">2:16</font></center></td><td class="stnd"><center>+<br><font size="1">1:36</font></center></td><td class="stnd"><center>+<br><font size="1">1:28</font></center></td><td class="stnd"><center>+1<br><font size="1">3:47</font></center></td><td class="stnd"><center>-2<br><font size="1">4:45</font></center></td><td class="stnd"><center>+2<br><font size="1">3:32</font></center></td><td class="stnd"><center>+1<br><font size="1">1:10</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">7</td><td class="stnd">1186</td><td class="stnd">36%</td><td class="stnd">0.04</td>
-    </tr>
-    <tr class="stand01"><td class="stnd"><center>9.</center></td><td class="stnd">Nizhny Novgorod SU: Epifanov, Krivonosov</td><td class="stnd"><center>-4<br><font size="1">4:59</font></center></td><td class="stnd"><center>+<br><font size="1">1:57</font></center></td><td class="stnd"><center>+<br><font size="1">3:52</font></center></td><td class="stnd"><center>+2<br><font size="1">1:42</font></center></td><td class="stnd"><center>+1<br><font size="1">2:52</font></center></td><td class="stnd"><center>+2<br><font size="1">3:19</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+3<br><font size="1">4:08</font></center></td><td class="stnd"><center>+1<br><font size="1">0:48</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">7</td><td class="stnd">2018</td><td class="stnd">56%</td><td class="stnd">0.04</td>
-    </tr>
-    <tr class="stand01"><td class="stnd"><center>10.</center></td><td class="stnd">Moscow SU Trinity: Akhmedov, Gorbunov, Shlyunkin</td><td class="stnd"><center>-</center></td><td class="stnd"><center>+1<br><font size="1">3:28</font></center></td><td class="stnd"><center>+<br><font size="1">4:41</font></center></td><td class="stnd"><center>+1<br><font size="1">2:27</font></center></td><td class="stnd"><center>+1<br><font size="1">1:05</font></center></td><td class="stnd"><center>+1<br><font size="1">3:11</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+2<br><font size="1">3:57</font></center></td><td class="stnd"><center>+4<br><font size="1">3:02</font></center></td><td class="stnd"><center>-20<br><font size="1">4:59</font></center></td><td class="stnd">7</td><td class="stnd">2411</td><td class="stnd">58%</td><td class="stnd">0.04</td>
-    </tr>
-    <tr class="stand00"><td class="stnd"><center>11.</center></td><td class="stnd">Saratov SU 1: Agapov, Chumachenko, Fefer</td><td class="stnd"><center>-</center></td><td class="stnd"><center>+<br><font size="1">2:03</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+3<br><font size="1">2:57</font></center></td><td class="stnd"><center>+1<br><font size="1">1:30</font></center></td><td class="stnd"><center>+1<br><font size="1">3:45</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+3<br><font size="1">4:49</font></center></td><td class="stnd"><center>+1<br><font size="1">0:45</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">6</td><td class="stnd">2029</td><td class="stnd">60%</td><td class="stnd">0.01</td>
-    </tr>
-    <tr class="stand01"><td class="stnd"><center>12.</center></td><td class="stnd">SPb SU Canyon: Pyshkin, Ryazanov, Sokolov</td><td class="stnd"><center>-</center></td><td class="stnd"><center>+1<br><font size="1">1:42</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+1<br><font size="1">4:21</font></center></td><td class="stnd"><center>+1<br><font size="1">2:38</font></center></td><td class="stnd"><center>+1<br><font size="1">3:02</font></center></td><td class="stnd"><center>-</center></td><td class="stnd"><center>+<br><font size="1">4:10</font></center></td><td class="stnd"><center>-3<br><font size="1">4:59</font></center></td><td class="stnd"><center>-</center></td><td class="stnd">5</td><td class="stnd">1193</td><td class="stnd">44%</td><td class="stnd">0.00</td>
+    <c:set var="prev" value="-1"/>
+    <c:set var="stand" value="0"/>
+    <c:forEach var="team" items="${registrants}">
+        <c:if test="${prev != team.tasksSolved}">
+            <c:set var="prev" value="${team.tasksSolved}"/>
+            <c:set var="stand" value="${stand == 0 ? 1 : 0}"/>
+        </c:if>
+        <tr class="${stand == 1 ? 'stand01' : 'stand00'}">
+            <td class="stnd">
+                <center><c:out value="${team.place}."/></center>
+            </td>
+            <td class="stnd">
+                <c:out value="${team.fullTeamName}"/>
+            </td>
+            <c:set var="team_tasks" value="${teamTasks[team.team.id]}"/>
+            <c:forEach var="task" items="${team_tasks}">
+                <c:choose>
+                    <c:when test="${task.taskStatus == 'FIRST_OK' || task.taskStatus == 'OK'}">
+                        <c:set var="team_task_status"
+                               value="+${task.attemptCount > 1 ? task.attemptCount - 1  : ''}"/>
+                    </c:when>
+                    <c:when test="${task.taskStatus == 'FAILED'}">
+                        <c:set var="team_task_status"
+                               value="-${task.attemptCount}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="team_task_status" value=""/>
+                    </c:otherwise>
+                </c:choose>
+                <td class="${task.taskStatus == 'FIRST_OK' ? 'opener' : 'stnd'}">
+                    <c:if test="${task.taskStatus != 'UNTRIED'}">
+                        <center>
+                            <c:out value="${team_task_status}"/><br>
+                            <font size="1">
+                                <fmt:formatNumber value="${(task.lastAttemptTime - task.lastAttemptTime
+                                % 60) / 60}" maxFractionDigits="0" />:<fmt:formatNumber
+                                    value="${task.lastAttemptTime % 60}" maxFractionDigits="0" />
+                            </font>
+                        </center>
+                    </c:if>
+                </td>
+            </c:forEach>
+            <td class="stnd"><c:out value="${team.tasksSolved}"/></td>
+            <td class="stnd"><c:out value="${team.penalty}"/></td>
+        </tr>
+    </c:forEach>
+    <tr>
+        <td class="stnd"></td>
+        <td class="stnd"><b>Submits sent:</b></td>
+        <c:forEach var="task" items="${tasks}">
+            <td class="stnd"><b><c:out value="${task.totalTries}"/></b></td>
+        </c:forEach>
+        <td class="stnd"></td><td class="stnd"></td>
     </tr>
     <tr>
-        <td class="stnd"></td><td class="stnd"><b>Submits sent:</b></td><td class="stnd"><b>30</b></td><td class="stnd"><b>17</b></td><td class="stnd"><b>10</b></td><td class="stnd"><b>19</b></td><td class="stnd"><b>16</b></td><td class="stnd"><b>29</b></td><td class="stnd"><b>10</b></td><td class="stnd"><b>26</b></td><td class="stnd"><b>26</b></td><td class="stnd"><b>30</b></td><td class="stnd"><b>213</b></td><td class="stnd"></td><td class="stnd"></td>
-    </tr>
-    <tr>
-        <td class="stnd"></td><td class="stnd"><b>Accepted:</b></td><td class="stnd"><b>5</b><br>(16%)</td><td class="stnd"><b>12</b><br>(70%)</td><td class="stnd"><b>10</b><br>(100%)</td><td class="stnd"><b>12</b><br>(63%)</td><td class="stnd"><b>12</b><br>(75%)</td><td class="stnd"><b>12</b><br>(41%)</td><td class="stnd"><b>4</b><br>(40%)</td><td class="stnd"><b>12</b><br>(46%)</td><td class="stnd"><b>11</b><br>(42%)</td><td class="stnd"><b>0</b><br>(0%)</td><td class="stnd"><b>90</b><br>(42%)</td><td class="stnd"></td><td class="stnd"></td>
-    </tr>
-    <tr>
-        <td class="stnd"></td><td class="stnd"><b>Dirt:</b></td><td class="stnd"><b>14</b><br>(73%)</td><td class="stnd"><b>5</b><br>(29%)</td><td class="stnd"><b>0</b><br>(0%)</td><td class="stnd"><b>7</b><br>(36%)</td><td class="stnd"><b>4</b><br>(25%)</td><td class="stnd"><b>17</b><br>(58%)</td><td class="stnd"><b>4</b><br>(50%)</td><td class="stnd"><b>14</b><br>(53%)</td><td class="stnd"><b>12</b><br>(52%)</td><td class="stnd"><b>0</b><br>(0%)</td><td class="stnd"><b>77</b><br>(46%)</td><td class="stnd"></td><td class="stnd"></td>
-    </tr>
-    <tr>
-        <td class="stnd"></td><td class="stnd">Wrong Answers:</td><td class="stnd">18<br>(60%)</td><td class="stnd">3<br>(17%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">3<br>(15%)</td><td class="stnd">2<br>(12%)</td><td class="stnd">14<br>(48%)</td><td class="stnd">6<br>(60%)</td><td class="stnd">11<br>(42%)</td><td class="stnd">11<br>(42%)</td><td class="stnd">15<br>(50%)</td><td class="stnd">83<br>(38%)</td><td class="stnd"></td><td class="stnd"></td>
-    </tr>
-    <tr>
-        <td class="stnd"></td><td class="stnd">Time Limits:</td><td class="stnd">7<br>(23%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">3<br>(15%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">1<br>(3%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">1<br>(3%)</td><td class="stnd">15<br>(50%)</td><td class="stnd">27<br>(12%)</td><td class="stnd"></td><td class="stnd"></td>
-    </tr>
-    <tr>
-        <td class="stnd"></td><td class="stnd">Run-Time Errors:</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">1<br>(5%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">1<br>(3%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">2<br>(7%)</td><td class="stnd">1<br>(3%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">5<br>(2%)</td><td class="stnd"></td><td class="stnd"></td>
-    </tr>
-    <tr>
-        <td class="stnd"></td><td class="stnd">Presentation Errors:</td><td class="stnd">0<br>(0%)</td><td class="stnd">2<br>(11%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">2<br>(12%)</td><td class="stnd">1<br>(3%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">2<br>(7%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">7<br>(3%)</td>
-    </tr><tr><td class="stnd"></td><td class="stnd"></td>
-    </tr>
-    <tr>
-        <td class="stnd"></td><td class="stnd">Memory Limits:</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">1<br>(3%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">0<br>(0%)</td><td class="stnd">1<br>(0%)</td><td class="stnd"></td><td class="stnd"></td>
+        <td class="stnd"></td><td class="stnd"><b>Accepted:</b></td>
+        <c:forEach var="task" items="${tasks}">
+            <td class="stnd">
+                <b><c:out value="${task.acceptedTries}"/></b>
+                <br>(<fmt:formatNumber value="${task.acceptedTries / task.totalTries * 100}" maxFractionDigits="0" />%)
+            </td>
+        </c:forEach>
+        <td class="stnd"></td><td class="stnd"></td>
     </tr>
     </tbody></table>
 </body>

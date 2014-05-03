@@ -41,7 +41,7 @@ public abstract class DaoImpl<Type> implements Dao<Type> {
         return getEntityManager().createQuery(query).getResultList();
     }
 
-    public Type getById(long id) {
+    public Type getById(int id) {
         return getEntityManager().find(entityClass, id);
     }
 

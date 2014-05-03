@@ -8,6 +8,8 @@ public class Task {
     @GeneratedValue
     @Column(name = "task_id")
     private int id;
+    @Column(name = "name")
+    private String name;
     @Column(nullable = false, name = "num_letter")
     private char numLetter;
     @Column(nullable = false, length = 200)
@@ -26,6 +28,14 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public char getNumLetter() {

@@ -1,21 +1,23 @@
 package com.blazwin.contests.service;
 
-import com.blazwin.contests.dao.GlobalDao;
-import com.blazwin.contests.dao.RegistrantDao;
-import com.blazwin.contests.dao.TaskDao;
-import com.blazwin.contests.dao.TeamTaskStatusDao;
+import com.blazwin.contests.dao.*;
+import com.blazwin.contests.entity.Contest;
 import com.blazwin.contests.entity.Registrant;
 import com.blazwin.contests.entity.Task;
 import com.blazwin.contests.entity.TeamTaskStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
 
 @Service
+@Transactional
 public class GlobalService {
 
+    @Autowired
+    private ContestDao contestDao;
     @Autowired
     private RegistrantDao registrantDao;
     @Autowired
@@ -24,6 +26,15 @@ public class GlobalService {
     private TaskDao taskDao;
     @Autowired
     private GlobalDao globalDao;
+
+    public void getAllContests(ModelMap model) {
+        List<Contest> list = contestDao.getAll();
+        model.addAttribute("contests", list);
+    }
+
+    public void processContest(int contestId) {
+        globalDao.calcResults(contestId);
+    }
 
     public void getDataForTable(int contestId, ModelMap model) {
         List<Registrant> regList = registrantDao.getByContestId(contestId);
@@ -40,10 +51,12 @@ public class GlobalService {
     private void processRegistrants(List<Registrant> regList) {
         Comparator<Registrant> cmp = new Comparator<Registrant>() {
             public int compare(Registrant o1, Registrant o2) {
-                return o2.getPlace() - o1.getPlace();
+                return o1.getPlace() - o2.getPlace();
             }
         };
         Collections.sort(regList, cmp);
+        for(Registrant reg : regList)
+            reg.getTeam().getId();
     }
 
     private void processTasks(List<Task> taskList) {
